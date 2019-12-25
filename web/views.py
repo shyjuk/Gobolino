@@ -11,9 +11,7 @@ from forms import PullImage, NewContainer, LoginForm
 from models import User
 
 
-c = docker.Client(base_url=app.config.get("DOCKER_HOST"),
-                  version='1.8',
-                  timeout=30)
+c = docker.APIClient(base_url=app.config.get("DOCKER_HOST"),  timeout=30)
 
 
 @app.template_filter('date')

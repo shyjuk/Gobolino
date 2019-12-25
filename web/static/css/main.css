@@ -53,3 +53,8 @@
 #containerinfo {
     padding-top: 10px;
 }
+.width-inherit{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+}

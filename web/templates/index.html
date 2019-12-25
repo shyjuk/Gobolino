@@ -2,9 +2,22 @@
 {% block content %}
     <div class="row">
             <div id="info" class="col-md-offset-2 col-md-8">
+    <table class="table">                    
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Status</th>
+            </tr>
+          </thead>
+        <tbody>    
     {% for key, value in info.iteritems() %}
-    <p>{{ key }}: {{ value }}</p>
+            <tr>
+                <th scope="row">{{ key }}</th>
+                <th scope="row">{{ value }}</th>
+            </tr>
     {% endfor %}
+      </tbody>
+    </table>
     </div>
     </div>
 {% endblock %}

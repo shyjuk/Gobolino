@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import TextField, PasswordField, BooleanField, IntegerField, SelectField, SubmitField
 from wtforms.validators import InputRequired
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = TextField(validators=[InputRequired()])
     password = PasswordField(validators=[InputRequired()])
     submit = SubmitField()
 
 
-class PullImage(Form):
+class PullImage(FlaskForm):
     url = TextField()
 
 
-class NewContainer(Form):
+class NewContainer(FlaskForm):
     name = TextField(default=None)
     image = SelectField(validators=[InputRequired()])
     command = TextField(default=None, validators=[InputRequired()])
