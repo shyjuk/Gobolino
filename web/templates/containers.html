@@ -43,7 +43,7 @@
                         </tr>
                     {% endfor %}
                 </table>
-                <p><a href="{{ url_for("containers") }}all/stop"><button class="btn btn-warning">Stop all containers</button></a> <a href="{{ url_for("containers") }}all/delete"><button class="btn btn-danger">Delete all containers</button></a></p>
+<!--                <p><a href="{{ url_for("containers") }}all/stop"><button class="btn btn-warning">Stop all containers</button></a> <a href="{{ url_for("containers") }}all/delete"><button class="btn btn-danger">Delete all containers</button></a></p> -->
                 <hr>
                 <p><button class="btn btn-warning" onclick="stopcontainers()">Stop selected containers</button> <button class="btn btn-danger" onclick="deletecontainers()">Delete selected containers</button></p>
             </div>
@@ -52,16 +52,16 @@
             <div id="containerinfo" class="col-md-8">
                 <table class="table table-bordered table-hover">
                 <tr class="success"><th colspan="2"><center><h3>Container {{ containerinfo.Name }}</h3></center></th></tr>
-                <tr><td>Id</td><td>{{ containerinfo.ID|truncate(12, True, end="") }}</td></tr>
+                <tr><td>Id</td><td>{{ containerinfo.Id|truncate(12, True, end="") }}</td></tr>
                 <tr><td>Hostname</td><td>{{ containerinfo.Config.Hostname }}</td></tr>
                 <tr><td>Dns</td><td>{% if containerinfo.Config.Dns is not none %}{% for item in containerinfo.Config.Dns %}{% if loop.last %}{{ item }}{% else %}{{ item }}, {% endif %}{% endfor %}{% else %}No Dns{% endif %}</td></tr>
                 <tr><td>Entrypoint</td><td>{% if containerinfo.Config.Entrypoint is none %}No Entrypoint{% else %}{{ containerinfo.Config.Entrypoint }}{% endif %}</td></tr>
                 <tr><td>Portspecs</td><td>{% if containerinfo.Config.PortSpecs is none %}No PortSpecs{% else %}{{ containerinfo.Config.PortSpecs }}{% endif %}</td></tr>
-                <tr><td>Exposed ports</td><td>{% if containerinfo.Config.ExposedPorts is none %}No ExposedPorts{% else %}{{ containerinfo.ExposedPorts }}{% endif %}</td></tr>
+                <tr><td>Exposed ports</td><td>{% if containerinfo.NetworkSettings.Ports is none %} No ExposedPorts {% else %} {{ containerinfo.NetworkSettings.Ports }}{% endif %}</td></tr>
                 <tr><td>Memory</td><td>{% if containerinfo.Config.Memory == 0 %}No memory limits{% else %}{{ containerinfo.Config.Memory }}{% endif %}</td></tr>
                 <tr><td>Image</td><td><a href="{{ url_for("images") }}{{ containerinfo.Image|truncate(12, True, end="") }}">{{ containerinfo.Config.Image }}</a></td></tr>
-                <tr><td>Volumes</td><td>{{ containerinfo.Volumes }}</td></tr>
-                <tr><td>IP address</td><td>{{ containerinfo.NetworkSettings.IPAddress }}</td></tr>
+                <tr><td>Volumes</td><td>{{ containerinfo.Config.Volumes }}</td></tr>
+                <tr><td>IP address</td><td>{{ containerinfo.NetworkSettings.Networks.itervalues().next()['IPAddress'] }}</td></tr>
                 <tr><td>Running?</td><td>{{ containerinfo.State.Running }}</td></tr>
                 {% if logs  %}<tr><td colspan="2"><ul>{% for log in logs %}<li>{{ log }}</li>{% endfor %}</ul></td></tr>{% endif %}
                 </table>

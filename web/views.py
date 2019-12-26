@@ -101,7 +101,7 @@ def runimage(imagen_id=None):
     try:
         c.start(c.create_container(image=imagen_id, command=data['config']['Cmd'], stdin_open=True, detach=True))
         return redirect(url_for("containers"))
-    except docker.APIError as error:
+    except docker.errors.APIError as error:
         if error.explanation == "No command specified":
             flash("The image has no default command to run, so I can't launch it.", "error")
             return redirect(url_for("images"))
@@ -113,10 +113,21 @@ def runimage(imagen_id=None):
 def deleteimage(imagen_id=None):
     try:
         c.remove_image(imagen_id)
-    except docker.APIError as error:
+        flash("Image "+ imagen_id +" deleted", "success")
+    except docker.errors.APIError as error:
         flash(error.explanation, "error")
     return redirect(url_for("images"))
 
+
+@app.route('/images/<imagen_id>/forcedel/')
+@auth.login_required
+def forcedelimage(imagen_id=None):
+    try:
+        c.remove_image(imagen_id,force=True)
+        flash("Image "+ imagen_id +" deleted", "success")
+    except docker.errors.APIError as error:
+        flash(error.explanation, "error")
+    return redirect(url_for("images"))
 
 @app.route('/images/pull/', methods=["GET", "POST"])
 @auth.login_required
@@ -125,6 +136,8 @@ def pullimage():
     if request.method == "POST":
         def pullimagebackground(image):
             c.pull(image)
+#            for line in c.pull(image, stream=True):
+#                print(json.dumps(json.loads(line), indent=4))
         t = threading.Thread(target=pullimagebackground, args=[form.data['url']])
         t.start()
         flash("The image is downloading in the background.", "success")

@@ -5,4 +5,5 @@ import main
 
 sys.path.insert(0, '..')
 
-main.app.run(main.app.config.get("HOST"))
+main.app.run(main.app.config.get("HOST"),port=80)
+

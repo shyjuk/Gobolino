@@ -5,6 +5,7 @@ class Configuration(object):
     DEBUG = True
     SECRET_KEY = 'SHYJU@#'
     HOST = "192.168.20.203"
+    PORT = "80"
     DOCKER_HOST = "unix://var/run/docker.sock"
 
 

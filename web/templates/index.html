@@ -2,7 +2,7 @@
 {% block content %}
     <div class="row">
             <div id="info" class="col-md-offset-2 col-md-8">
-    <table class="table">                    
+    <table class="table table-bordered table-hover">                    
         <thead>
             <tr>
                 <th scope="col">Item</th>
@@ -12,8 +12,8 @@
         <tbody>    
     {% for key, value in info.iteritems() %}
             <tr>
-                <th scope="row">{{ key }}</th>
-                <th scope="row">{{ value }}</th>
+                <td scope="row">{{ key }}</td>
+                <td scope="row">{{ value }}</td>
             </tr>
     {% endfor %}
       </tbody>
