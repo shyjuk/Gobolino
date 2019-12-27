@@ -13,7 +13,7 @@
     {% for key, value in info.iteritems() %}
             <tr>
                 <td scope="row">{{ key }}</td>
-                <td scope="row">{{ value }}</td>
+                <td scope="row">{% if value is mapping %} {% for k1, v1 in value.iteritems() %}{% if loop.last %} {{ k1}} : {{ v1 }}<br>{% else %} {{ k1}}  : {% if v1 is iterable and v1 is not string %}  {{ v1 |join(',') }} <br> {% else %} {{ v1 }}<br> {% endif %}  {% endif %}{% endfor %}  {% else %} {{ value }} {% endif %} </td>
             </tr>
     {% endfor %}
       </tbody>

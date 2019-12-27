@@ -33,6 +33,10 @@
     text-align: left;
 }
 
+#info {
+    padding-top: 10px;
+}
+
 #images {
     padding-top: 10px;
 }
