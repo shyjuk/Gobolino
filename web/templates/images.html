@@ -54,7 +54,7 @@
                     {% for key,value in inspect.items() %}
                         <tr>
                             <td>  {{ key }}  </td>
-                             <td>  {{ value }}  </td>
+                             <td>{% if value is mapping %} {% for k1, v1 in value.iteritems() %}{% if loop.last %} {{ k1}} : {{ v1 }}<br>{% else %} {{ k1}}  : {% if v1 is iterable and v1 is not string %}  {{ v1 |join(',') }} <br> {% else %} {{ v1 }}<br> {% endif %}  {% endif %}{% endfor %}  {% else %} {{ value }} {% endif %} </td>
                         </tr>
                     {% endfor %}
                 </table>
